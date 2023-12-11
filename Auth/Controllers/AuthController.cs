@@ -2,7 +2,7 @@
 using Auth.Services.Interface;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Auth.Controllers
+namespace Auth.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

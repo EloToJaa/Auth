@@ -1,4 +1,4 @@
-using Auth;
+using Auth.Models;
 using Auth.Models.Entities;
 using Auth.Services.Implementation;
 using Auth.Services.Interface;
