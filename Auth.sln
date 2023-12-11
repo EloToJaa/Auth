@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Auth.Models", "Auth.Models\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Auth.Services", "Auth.Services\Auth.Services.csproj", "{F938D31A-AAD0-4667-BEA4-30AAEE310004}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Auth.Api", "Auth.Api\Auth.Api.csproj", "{ABB2B95C-91A4-446D-AA73-107E58EBB114}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{F938D31A-AAD0-4667-BEA4-30AAEE310004}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F938D31A-AAD0-4667-BEA4-30AAEE310004}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F938D31A-AAD0-4667-BEA4-30AAEE310004}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ABB2B95C-91A4-446D-AA73-107E58EBB114}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ABB2B95C-91A4-446D-AA73-107E58EBB114}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ABB2B95C-91A4-446D-AA73-107E58EBB114}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ABB2B95C-91A4-446D-AA73-107E58EBB114}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
