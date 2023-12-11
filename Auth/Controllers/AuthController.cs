@@ -8,12 +8,10 @@ namespace Auth.Controllers
     [ApiController]
     public class AuthController : ControllerBase
     {
-        private readonly IConfiguration _configuration;
         private readonly IAuthService _authService;
 
-        public AuthController(IConfiguration configuration, IAuthService authService)
+        public AuthController(IAuthService authService)
         {
-            _configuration = configuration;
             _authService = authService;
         }
 
@@ -42,8 +40,8 @@ namespace Auth.Controllers
                 var refreshTokenExpiresAt = DateTime.UtcNow.AddDays(7);
                 var accessTokenExpiresAt = DateTime.UtcNow.AddMinutes(5);
 
-                var refreshToken = await _authService.GenerateJwtToken(user, refreshTokenExpiresAt);
-                var accessToken = await _authService.GenerateJwtToken(user, accessTokenExpiresAt);
+                var refreshToken = _authService.GenerateJwtToken(user, refreshTokenExpiresAt);
+                var accessToken = _authService.GenerateJwtToken(user, accessTokenExpiresAt);
 
                 Response.Cookies.Append("refreshToken", refreshToken, new CookieOptions
                 {

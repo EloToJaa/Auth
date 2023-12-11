@@ -1,4 +1,5 @@
 using Auth;
+using Auth.Models.Entities;
 using Auth.Services.Implementation;
 using Auth.Services.Interface;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -10,9 +11,10 @@ using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
-Log.Logger = new LoggerConfiguration()
-            .ReadFrom.Configuration(builder.Configuration)
-            .CreateLogger();
+Log.Logger =
+    new LoggerConfiguration()
+        .ReadFrom.Configuration(builder.Configuration)
+        .CreateLogger();
 
 builder.Host.UseSerilog((context, configuration) =>
 {
@@ -24,17 +26,21 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services
-    .AddDbContext<DataContext>(options =>
+    .AddDbContext<ApplicationDbContext>(options =>
         options.UseNpgsql(
             builder.Configuration.GetConnectionString("DefaultConnection"))
         );
 
 builder.Services
-    .AddIdentity<IdentityUser, IdentityRole>(options => {
+    .AddIdentity<User, IdentityRole>(options => {
+        options.SignIn.RequireConfirmedEmail = true;
+        options.User.RequireUniqueEmail = true;
         options.Password.RequiredLength = 8;
     })
-    .AddEntityFrameworkStores<DataContext>()
-    .AddDefaultTokenProviders();
+    .AddEntityFrameworkStores<ApplicationDbContext>()
+    .AddDefaultTokenProviders()
+    .AddUserManager<UserManager<User>>()
+    .AddSignInManager<SignInManager<User>>();
 
 builder.Services
     .AddAuthentication(options =>
@@ -56,6 +62,11 @@ builder.Services
             ValidAudience = builder.Configuration.GetSection("Jwt:Audience").Value,
             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration.GetSection("Jwt:Key").Value!))
         };
+    })
+    .AddGoogle(options =>
+    {
+        options.ClientId = builder.Configuration.GetSection("OAuth:Google:ClientId").Value!;
+        options.ClientSecret = builder.Configuration.GetSection("OAuth:Google:ClientSecret").Value!;
     });
 
 builder.Services.AddTransient<IAuthService, AuthService>();

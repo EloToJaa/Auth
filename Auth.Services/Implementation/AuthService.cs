@@ -6,15 +6,16 @@ using Microsoft.IdentityModel.Tokens;
 using System.Security.Claims;
 using System.Text;
 using Microsoft.Extensions.Configuration;
+using Auth.Models.Entities;
 
 namespace Auth.Services.Implementation
 {
     public class AuthService : IAuthService
     {
-        private readonly UserManager<IdentityUser> _userManager;
+        private readonly UserManager<User> _userManager;
         private readonly IConfiguration _configuration;
 
-        public AuthService(UserManager<IdentityUser> userManager, IConfiguration configuration)
+        public AuthService(UserManager<User> userManager, IConfiguration configuration)
         {
             _userManager = userManager;
             _configuration = configuration;
@@ -22,7 +23,7 @@ namespace Auth.Services.Implementation
 
         public async Task<IEnumerable<IdentityError>> RegisterUser(UserRegisterRequestDto request)
         {
-            var user = new IdentityUser
+            var user = new User
             {
                 UserName = request.Username,
                 Email = request.Email
@@ -54,7 +55,7 @@ namespace Auth.Services.Implementation
             return user;
         }
 
-        public async Task<string> GenerateJwtToken(IdentityUser user, DateTime expiresAt)
+        public string GenerateJwtToken(IdentityUser user, DateTime expiresAt)
         {
             var claims = new List<Claim>
             {
