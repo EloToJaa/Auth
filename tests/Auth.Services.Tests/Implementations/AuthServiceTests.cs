@@ -15,7 +15,7 @@ namespace Auth.Services.Tests.Implementations
                 .AddJsonFile("appsettings.json")
                 .Build();
 
-            _authService = new AuthService(configuration);
+            //_authService = new AuthService(configuration);
         }
     }
 }
